@@ -4,6 +4,9 @@ use Cake\Routing\Router;
 
 Router::plugin('DebugKit', ['path' => '/debug-kit'], function (RouteBuilder $routes) {
     $routes->extensions('json');
+
+    $routes->connect('/', ['controller' => 'DebugKit', 'action' => 'index']);
+
     $routes->connect(
         '/toolbar/clear-cache',
         ['controller' => 'Toolbar', 'action' => 'clearCache']
@@ -36,4 +39,6 @@ Router::plugin('DebugKit', ['path' => '/debug-kit'], function (RouteBuilder $rou
             $routes->connect('/sent/:panel/:id', ['action' => 'sent'], ['pass' => ['panel', 'id']]);
         }
     );
+
+    $routes->fallbacks();
 });
