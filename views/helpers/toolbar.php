@@ -86,7 +86,7 @@ class ToolbarHelper extends AppHelper {
  */
 	function call__($method, $params) {
 		if (method_exists($this->{$this->_backEndClassName}, $method)) {
-			return $this->{$this->_backEndClassName}->dispatchMethod($method, $params);
+			return $this->dispatchMethod($this->{$this->_backEndClassName}, $method, $params);
 		}
 	}
 /**

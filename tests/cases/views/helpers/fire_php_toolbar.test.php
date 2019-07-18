@@ -31,14 +31,14 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase {
  *
  * @return void
  **/
-	function startTest() {
+	function startTest($method) {
 		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 		Router::parse('/');
 
-		$this->Toolbar =& new ToolbarHelper(array('output' => 'DebugKit.FirePhpToolbar'));
-		$this->Toolbar->FirePhpToolbar =& new FirePhpToolbarHelper();
+		$this->Toolbar = new ToolbarHelper(array('output' => 'DebugKit.FirePhpToolbar'));
+		$this->Toolbar->FirePhpToolbar = new FirePhpToolbarHelper();
 
-		$this->Controller =& new Controller();
+		$this->Controller = new Controller();
 		if (isset($this->_debug)) {
 			Configure::write('debug', $this->_debug);
 		}
@@ -123,7 +123,7 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase {
  *
  * @return void
  */
-	function endTest() {
+	function endTest($method) {
 		TestFireCake::reset();
 	}
 /**

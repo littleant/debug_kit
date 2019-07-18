@@ -34,7 +34,7 @@ if (!function_exists('firecake')) {
 	}
 }
 
-class FireCake extends Object {
+class FireCake extends CakeObject {
 /**
  * Options for FireCake.
  *
@@ -106,16 +106,16 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function &getInstance($class = null) {
+	static function &getInstance($class = null) {
 		static $instance = array();
 		if (!empty($class)) {
 			if (!$instance || strtolower($class) != strtolower(get_class($instance[0]))) {
-				$instance[0] =& new $class();
+				$instance[0] = new $class();
 				$instance[0]->setOptions();
 			}
 		}
 		if (!isset($instance[0]) || !$instance[0]) {
-			$instance[0] =& new FireCake();
+			$instance[0] = new FireCake();
 			$instance[0]->setOptions();
 		}
 		return $instance[0];
@@ -128,7 +128,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function setOptions($options = array()) {
+    static function setOptions($options = array()) {
 		$_this =& FireCake::getInstance();
 		if (empty($_this->options)) {
 			$_this->options = array_merge($_this->_defaultOptions, $options);
@@ -142,7 +142,7 @@ class FireCake extends Object {
  * @access public
  * @return boolean
  **/
-	function detectClientExtension() {
+    static function detectClientExtension() {
 		$ua = FireCake::getUserAgent();
 		if (!preg_match('/\sFirePHP\/([\.|\d]*)\s?/si', $ua, $match) || !version_compare($match[1], '0.0.6', '>=')) {
 			return false;
@@ -156,7 +156,7 @@ class FireCake extends Object {
  * @static
  * @return string UserAgent string of active client connection
  **/
-	function getUserAgent() {
+    static function getUserAgent() {
 		return env('HTTP_USER_AGENT');
 	}
 /**
@@ -165,7 +165,7 @@ class FireCake extends Object {
  *
  * @return void
  **/
-	function disable() {
+    static function disable() {
 		$_this =& FireCake::getInstance();
 		$_this->_enabled = false;
 	}
@@ -174,7 +174,7 @@ class FireCake extends Object {
  *
  * @return void
  **/
-	function enable() {
+    static function enable() {
 		$_this =& FireCake::getInstance();
 		$_this->_enabled = true;
 	}
@@ -187,7 +187,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function log($message, $label = null) {
+    static function log($message, $label = null) {
 		FireCake::fb($message, $label, 'log');
 	}
 /**
@@ -199,7 +199,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function warn($message, $label = null) {
+    static function warn($message, $label = null) {
 		FireCake::fb($message, $label, 'warn');
 	}
 /**
@@ -211,7 +211,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function info($message, $label = null) {
+	static function info($message, $label = null) {
 		FireCake::fb($message, $label, 'info');
 	}
 /**
@@ -223,7 +223,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function error($message, $label = null) {
+    static function error($message, $label = null) {
 		FireCake::fb($message, $label, 'error');
 	}
 /**
@@ -235,7 +235,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function table($label, $message) {
+    static function table($label, $message) {
 		FireCake::fb($message, $label, 'table');
 	}
 /**
@@ -247,7 +247,7 @@ class FireCake extends Object {
  * @static
  * @return void
  */
-	function dump($label, $message) {
+    static function dump($label, $message) {
 		FireCake::fb($message, $label, 'dump');
 	}
 /**
@@ -257,7 +257,7 @@ class FireCake extends Object {
  * @access public
  * @return void
  */
-	function trace($label)  {
+    static function trace($label)  {
 		FireCake::fb($label, 'trace');
 	}
 /**
@@ -268,7 +268,7 @@ class FireCake extends Object {
  * @access public
  * @return void
  */
-	function group($label)  {
+    static function group($label)  {
 		FireCake::fb(null, $label, 'groupStart');
 	}
 /**
@@ -279,7 +279,7 @@ class FireCake extends Object {
  * @access public
  * @return void
  */
-	function groupEnd()  {
+    static function groupEnd()  {
 		FireCake::fb(null, null, 'groupEnd');
 	}
 /**
@@ -294,7 +294,7 @@ class FireCake extends Object {
  * @static
  * @return void
  **/
-	function fb($message) {
+	static function fb($message) {
 		$_this =& FireCake::getInstance();
 
 		if (headers_sent($filename, $linenum)) {
@@ -531,7 +531,7 @@ class FireCake extends Object {
 		if (!class_exists('JavascriptHelper')) {
 			App::import('Helper', 'Javascript');
 		}
-		$javascript =& new JavascriptHelper();
+		$javascript = new JavascriptHelper();
 		$javascript->useNative = false;
 		if (is_string($object)) {
 			return '"' . $javascript->escapeString($object) . '"';

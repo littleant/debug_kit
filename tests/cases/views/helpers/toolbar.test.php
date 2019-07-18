@@ -30,12 +30,12 @@ class ToolbarHelperTestCase extends CakeTestCase {
  *
  * @return void
  **/
-	function startTest() {
+	function startTest($method) {
 		Configure::write('Cache.disable', false);
 		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 		Router::parse('/');
 		
-		$this->Toolbar =& new ToolbarHelper(array(
+		$this->Toolbar = new ToolbarHelper(array(
 			'output' => 'MockBackendHelper',
 			'cacheKey' => 'debug_kit_toolbar_test_case',
 			'cacheConfig' => 'default'
@@ -130,7 +130,7 @@ class ToolbarHelperTestCase extends CakeTestCase {
  * @return void
  */
 	function testGetQueryLogs() {
-		$model =& new Model(array('ds' => 'test_suite', 'table' => 'posts', 'name' => 'Post'));
+		$model = new Model(array('ds' => 'test_suite', 'table' => 'posts', 'name' => 'Post'));
 		$model->find('all');
 		$model->find('first');
 
@@ -162,7 +162,7 @@ class ToolbarHelperTestCase extends CakeTestCase {
  * @access public
  * @return void
  */
-	function endTest() {
+	function endTest($method) {
 		unset($this->Toolbar, $this->Controller);
 		ClassRegistry::removeObject('view');
 		ClassRegistry::flush();

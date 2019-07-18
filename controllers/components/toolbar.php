@@ -17,7 +17,7 @@
  * @since         DebugKit 0.1
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  **/
-class ToolbarComponent extends Object {
+class ToolbarComponent extends CakeObject {
 /**
  * Settings for the Component
  *
@@ -286,10 +286,10 @@ class ToolbarComponent extends Object {
 				continue;
 			}
 			list($plugin, $className) = pluginSplit($className);
-			$panelObj =& new $className($settings);
+			$panelObj = new $className($settings);
 			if (is_subclass_of($panelObj, 'DebugPanel') || is_subclass_of($panelObj, 'debugpanel')) {
 				list(, $panel) = pluginSplit($panel);
-				$this->panels[$panel] =& $panelObj;
+				$this->panels[$panel] = $panelObj;
 			}
 		}
 	}
@@ -358,7 +358,7 @@ class ToolbarComponent extends Object {
  *
  * @package       cake.debug_kit
  */
-class DebugPanel extends Object {
+class DebugPanel extends CakeObject {
 /**
  * Defines which plugin this panel is from so the element can be located.
  *

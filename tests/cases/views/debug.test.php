@@ -36,11 +36,11 @@ class DebugViewTestCase extends CakeTestCase {
  *
  * @return void
  **/
-	function startTest() {
+	function startTest($method) {
 		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 		Router::parse('/');
-		$this->Controller =& new Controller();
-		$this->View =& new DebugView($this->Controller, false);
+		$this->Controller = new Controller();
+		$this->View = new DebugView($this->Controller, false);
 		$this->_debug = Configure::read('debug');
 		$this->_paths = array();
 		$this->_paths['plugins'] = App::path('plugins');
@@ -53,7 +53,7 @@ class DebugViewTestCase extends CakeTestCase {
  *
  * @return void
  **/
-	function endTest() {
+	function endTest($method) {
 		App::build(array(
 			'plugins' => $this->_paths['plugins'],
 			'views' => $this->_paths['views'],
@@ -115,7 +115,7 @@ TEXT;
 			'here' => '/posts/index',
 		);
 		$this->Controller->layout = 'default';
-		$View =& new DebugView($this->Controller, false);
+		$View = new DebugView($this->Controller, false);
 		$View->render('index');
 
 		$result = DebugKitDebugger::getTimers();

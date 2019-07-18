@@ -36,8 +36,8 @@ class ToolbarAccessTestCase extends CakeTestCase {
  *
  * @return void
  */
-	function startTest() {
-		$this->Model =& new ToolbarAccess();
+	function startTest($method) {
+		$this->Model = new ToolbarAccess();
 	}
 
 /**
@@ -45,7 +45,7 @@ class ToolbarAccessTestCase extends CakeTestCase {
  *
  * @return void
  */
-	function endTest() {
+	function endTest($method) {
 		unset($this->Model);
 	}
 

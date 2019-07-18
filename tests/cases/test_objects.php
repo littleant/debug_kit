@@ -35,7 +35,7 @@ class TestFireCake extends FireCake {
  * @access public
  * @return void
  */	
-	function detectClientExtension() {
+	static function detectClientExtension() {
 		return true;
 	}
 /**

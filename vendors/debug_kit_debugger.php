@@ -52,7 +52,7 @@ class DebugKitDebugger extends Debugger {
  */
 	function __destruct() {
 		$_this =& DebugKitDebugger::getInstance();
-		if (Configure::read('debug') < 2 || !$_this->__benchmarks) {
+		if (Configure::read('debug') < 2 || !isset($_this->__benchmarks) || !$_this->__benchmarks) {
 			return;
 		}
 		$timers = array_values(DebugKitDebugger::getTimers());
@@ -87,7 +87,7 @@ class DebugKitDebugger extends Debugger {
  * @return bool true
  * @static
  **/
-	function startTimer($name = null, $message = null) {
+	static function startTimer($name = null, $message = null) {
 		$start = getMicrotime();
 		$_this =& DebugKitDebugger::getInstance();
 
@@ -131,7 +131,7 @@ class DebugKitDebugger extends Debugger {
  * @return boolean true if timer was ended, false if timer was not started.
  * @static
  */
-	function stopTimer($name = null) {
+    static function stopTimer($name = null) {
 		$end = getMicrotime();
 		$_this =& DebugKitDebugger::getInstance();
 		if (!$name) {
@@ -169,7 +169,7 @@ class DebugKitDebugger extends Debugger {
  * @return array
  * @access public
  **/
-	function getTimers($clear = false) {
+    static function getTimers($clear = false) {
 		$_this =& DebugKitDebugger::getInstance();
 		$start = DebugKitDebugger::requestStartTime();
 		$now = getMicrotime();
@@ -208,7 +208,7 @@ class DebugKitDebugger extends Debugger {
  *
  * @return bool true
  **/
-	function clearTimers() {
+	static function clearTimers() {
 		$_this =& DebugKitDebugger::getInstance();
 		$_this->__benchmarks = array();
 		return true;
@@ -221,7 +221,7 @@ class DebugKitDebugger extends Debugger {
  * @return float number of seconds elapsed for timer name, 0 on missing key
  * @static
  **/
-	function elapsedTime($name = 'default', $precision = 5) {
+	static function elapsedTime($name = 'default', $precision = 5) {
 		$_this =& DebugKitDebugger::getInstance();
 		if (!isset($_this->__benchmarks[$name]['start']) || !isset($_this->__benchmarks[$name]['end'])) {
 			return 0;
@@ -235,7 +235,7 @@ class DebugKitDebugger extends Debugger {
  * @return float elapsed time in seconds since script start.
  * @static
  */
-	function requestTime() {
+	static function requestTime() {
 		$start = DebugKitDebugger::requestStartTime();
 		$now = getMicroTime();
 		return ($now - $start);
@@ -247,7 +247,7 @@ class DebugKitDebugger extends Debugger {
  * @return float time of request start
  * @static
  */
-	function requestStartTime() {
+	static function requestStartTime() {
 		if (defined('TIME_START')) {
 			$startTime = TIME_START;
 		} else if (isset($GLOBALS['TIME_START'])) {
@@ -263,7 +263,7 @@ class DebugKitDebugger extends Debugger {
  * @return integer number of bytes ram currently in use. 0 if memory_get_usage() is not available.
  * @static
  **/
-	function getMemoryUse() {
+	static function getMemoryUse() {
 		if (!function_exists('memory_get_usage')) {
 			return 0;
 		}
@@ -275,7 +275,7 @@ class DebugKitDebugger extends Debugger {
  * @return integer peak memory use (in bytes).  Returns 0 if memory_get_peak_usage() is not available
  * @static
  **/
-	function getPeakMemoryUse() {
+	static function getPeakMemoryUse() {
 		if (!function_exists('memory_get_peak_usage')) {
 			return 0;
 		}
@@ -290,7 +290,7 @@ class DebugKitDebugger extends Debugger {
  * @param string $message Message to identify this memory point.
  * @return boolean
  **/
-	function setMemoryPoint($message = null) {
+	static function setMemoryPoint($message = null) {
 		$memoryUse = DebugKitDebugger::getMemoryUse();
 		if (!$message) {
 			$named = false;
@@ -315,7 +315,7 @@ class DebugKitDebugger extends Debugger {
  * @param boolean $clear Whether you want to clear the memory points as well. Defaults to false.
  * @return array Array of memory marks stored so far.
  **/
-	function getMemoryPoints($clear = false) {
+	static function getMemoryPoints($clear = false) {
 		$self =& DebugKitDebugger::getInstance();
 		$marks = $self->__memoryPoints;
 		if ($clear) {
@@ -328,7 +328,7 @@ class DebugKitDebugger extends Debugger {
  *
  * @return void
  **/
-	function clearMemoryPoints() {
+	static function clearMemoryPoints() {
 		$self =& DebugKitDebugger::getInstance();
 		$self->__memoryPoints = array();
 	}
@@ -355,7 +355,9 @@ class DebugKitDebugger extends Debugger {
 			$level = $level['level'];
 		}
 		$files = $this->trace(array('start' => 2, 'format' => 'points'));
-		$listing = $this->excerpt($files[0]['file'], $files[0]['line'] - 1, 1);
+		if (isset($files[0]['file']) && isset($files[0]['line'])) {
+			$listing = $this->excerpt($files[0]['file'], $files[0]['line'] - 1, 1);
+		}
 		$trace = $this->trace(array('start' => 2, 'depth' => '20'));
 
 		if ($this->_outputFormat == 'fb') {

@@ -19,7 +19,7 @@
  * @since         DebugKit 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  **/
-class ToolbarAccess extends Object {
+class ToolbarAccess extends CakeObject {
 
 /**
  * Runs an explain on a query if the connection supports EXPLAIN. 

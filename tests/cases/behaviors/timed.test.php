@@ -27,8 +27,8 @@ class TimedBehaviorTestCase extends CakeTestCase {
  *
  * @return void
  */
-	function startTest() {
-		$this->Article =& new Model(array('ds' => 'test_suite', 'table' => 'articles', 'name' => 'Article'));
+	function startTest($method) {
+		$this->Article = new Model(array('ds' => 'test_suite', 'table' => 'articles', 'name' => 'Article'));
 		$this->Article->Behaviors->attach('DebugKit.Timed');
 	}
 
@@ -37,7 +37,7 @@ class TimedBehaviorTestCase extends CakeTestCase {
  *
  * @return void
  */
-	function endTest() {
+	function endTest($method) {
 		unset($this->Article);
 		ClassRegistry::flush();
 		DebugKitDebugger::clearTimers();
