@@ -681,7 +681,7 @@ class DebugKitLogListener {
  *
  * @return void
  */
-	function DebugKitLogListener($options) {
+	function __construct($options) {
 		$options['panel']->logger =& $this;
 	}
 
