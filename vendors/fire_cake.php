@@ -461,7 +461,7 @@ class FireCake extends CakeObject {
  * @static
  * @return void
  **/
-	function stringEncode($object, $objectDepth = 1, $arrayDepth = 1) {
+	static function stringEncode($object, $objectDepth = 1, $arrayDepth = 1) {
 		$_this =& FireCake::getInstance();
 		$return = array();
 		if (is_resource($object)) {
@@ -507,7 +507,7 @@ class FireCake extends CakeObject {
  * @static
  * @return string
  **/
-	function jsonEncode($object, $skipEncode = false) {
+	static function jsonEncode($object, $skipEncode = false) {
 		$_this =& FireCake::getInstance();
 		if (!$skipEncode) {
 			$object = FireCake::stringEncode($object);
@@ -527,7 +527,7 @@ class FireCake extends CakeObject {
  * @static
  * @return string
  **/
-	function _jsonEncode($object) {
+	static function _jsonEncode($object) {
 		if (!class_exists('JavascriptHelper')) {
 			App::import('Helper', 'Javascript');
 		}
