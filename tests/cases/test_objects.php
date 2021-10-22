@@ -43,7 +43,7 @@ class TestFireCake extends FireCake {
  *
  * @return void
  **/
-	function reset() {
+    static function reset() {
 		$_this =& FireCake::getInstance();
 		$_this->sentHeaders = array();
 		$_this->_messageIndex = 1;

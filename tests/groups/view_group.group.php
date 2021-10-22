@@ -37,7 +37,7 @@ class DebugKitViewTestSuite extends TestSuite {
  * @access public
  * @return void
  */
-	function DebugKitViewTestSuite() {
+	function __construct() {
 		$testDir = dirname(dirname(__FILE__));
 		TestManager::addTestCasesFromDirectory($this, $testDir . DS . 'cases' . DS . 'views');
 	}
