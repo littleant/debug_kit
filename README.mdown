@@ -1,8 +1,8 @@
-# CakePHP DebugKit for CakePHP 1.3 PHP 7
+# CakePHP DebugKit for CakePHP 1.3 PHP 7+
 
 DebugKit provides a debugging toolbar and enhanced debugging tools for CakePHP applications.
 
-This version is for the [CakePHP 1.3.21 PHP 7](https://github.com/littleant/cakephp-1.3.2) port!
+This version is for the [CakePHP 1.3.21 PHP 7+](https://github.com/littleant/cakephp-1.3.21) port!
 
 ## Installation
 
